@@ -1,0 +1,86 @@
+{
+	"env": {
+		"browser": true,
+		"node": true,
+		"es2021": true,
+		"mocha": true
+	},
+	"plugins": ["@typescript-eslint"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2021,
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"extends": [
+		"standard",
+		"standard-with-typescript",
+		"plugin:react/recommended",
+		"plugin:react/jsx-runtime",
+		"plugin:react-hooks/recommended"
+	],
+	"rules": {
+		"array-bracket-newline": ["error", { "minItems": 3 }],
+		"array-element-newline": ["error", { "multiline": true }],
+		"comma-dangle": "off",
+		"@typescript-eslint/comma-dangle": [
+			"error",
+			{
+				"functions": "never",
+				"arrays": "always-multiline",
+				"objects": "always-multiline"
+			}
+		],
+		"indent": "off",
+		"@typescript-eslint/indent": ["warn", "tab", { "SwitchCase": 1 }],
+		"max-len": ["warn", { "code": 100, "comments": 120 }],
+		"newline-per-chained-call": ["error", { "ignoreChainWithDepth": 1 }],
+		"no-tabs": ["off"],
+		"@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "React" }],
+		"no-unused-vars": "off",
+		"no-void": ["off"],
+		"object-curly-newline": [
+			"error",
+			{
+				"ImportDeclaration": { "minProperties": 4 },
+				"ExportDeclaration": { "minProperties": 2 },
+				"ObjectExpression": {
+					"minProperties": 2,
+					"multiline": true,
+					"consistent": true
+				},
+				"ObjectPattern": { "minProperties": 3 }
+			}
+		],
+		"object-property-newline": ["error", { "allowAllPropertiesOnSameLine": false }],
+		"prefer-const": "off",
+		"semi": "off",
+		"@typescript-eslint/semi": ["error", "always"],
+		"quotes": "off",
+		"@typescript-eslint/quotes": ["warn", "single"],
+		"space-before-function-paren": "off",
+		"@typescript-eslint/space-before-function-paren": ["error", { "named": "never" }],
+		"@typescript-eslint/member-delimiter-style": [
+			"error",
+			{
+				"multiline": { "delimiter": "semi" }
+			}
+		],
+		"@typescript-eslint/explicit-function-return-type": ["off"],
+		"@typescript-eslint/promise-function-async": ["off"],
+		"@typescript-eslint/triple-slash-reference": "off",
+		"@typescript-eslint/strict-boolean-expressions": [
+			"error",
+			{ "allowNullableObject": true, "allowNullableBoolean": true, "allowNullableString": true }
+		],
+		"@typescript-eslint/restrict-template-expressions": [
+			"error",
+			{ "allowNullish": true }
+		],
+		"react/jsx-no-target-blank": "off"
+	},
+	"ignorePatterns": ["node_modules", "dist", "generated"]
+}

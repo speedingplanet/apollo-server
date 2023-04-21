@@ -1,0 +1,103 @@
+enum Country {
+	US
+	UK
+	CA
+}
+
+enum Genre {
+	ACTION
+	ADVENTURE
+	SUPERNATURAL
+	WAR
+	BLACK_AND_WHITE
+	ROMANCE
+	DRAMA
+	MOB
+	MAFIA
+	CRIME
+	BIOGRAPHY
+	FANTASY
+	COMIC_BOOK
+	SCI_FI
+	ANIME
+	FAMILY
+	MYSTERY
+}
+
+type Movie {
+	id: Int!
+	title: String!
+	year: Int!
+	directors: [String]
+	writers: [String]
+	rating: Int
+	genres: [Genre]
+}
+
+type Student {
+	id: Int!
+	firstName: String!
+	lastName: String!
+	dateOfBirth: String!
+	email: String!
+	phoneNumber: String
+	city: String
+	province: String
+	country: Country
+	postalCode: String
+}
+
+type Query {
+	movies: [Movie]
+	students: [Student]
+}
+
+input NewMovie {
+	title: String!
+	year: Int!
+	directors: [String]
+	writers: [String]
+	rating: Int
+	genres: [String]
+}
+
+input NewStudent {
+	firstName: String!
+	lastName: String!
+	dateOfBirth: String!
+	email: String!
+	phoneNumber: String
+	city: String
+	province: String
+	country: String
+	postalCode: String
+}
+
+input UpdateMovie {
+	title: String
+	year: Int
+	directors: [String]
+	writers: [String]
+	rating: Int
+	genres: [String]
+}
+
+input UpdateStudent {
+	firstName: String
+	lastName: String
+	dateOfBirth: String
+	email: String
+	phoneNumber: String
+	city: String
+	province: String
+	country: String
+	postalCode: String
+}
+
+type Mutation {
+	addMovie(movie: NewMovie!): Movie
+	addStudent(student: NewStudent!): Student
+
+	updateMovie(id: Int, movie: UpdateMovie): Movie
+	updateStudent(id: Int, student: UpdateStudent): Student
+}
