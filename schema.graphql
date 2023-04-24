@@ -48,7 +48,18 @@ type Student {
 }
 
 type Query {
-	movies: [Movie]
+	hello(name: String): String!
+	movies(
+		exact: Boolean = true
+		title: String
+		year: Int
+		rating: Int
+		id: Int
+		director: String
+		writer: String
+		genre: String
+	): [Movie]
+	moviesByYear(rating: Int, year: Int): [Movie]
 	students: [Student]
 }
 

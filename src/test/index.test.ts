@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { expect } from 'chai';
 import { strict as assert } from 'node:assert';
-import { typeDefs, resolvers } from '../index.js';
 import { ApolloServer } from '@apollo/server';
+import { resolvers } from '../resolvers.ts';
+import { typeDefs } from '../typeDefs.ts';
 
 describe('Test suite', () => {
 	it('should run a basic test', () => {
-		expect(1 + 3).to.equal(2);
+		expect(1 + 1).to.equal(2);
 	});
 
 	it('should run a basic apollo test', async () => {
