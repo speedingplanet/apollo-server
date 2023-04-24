@@ -15,13 +15,7 @@
 		"sourceType": "module",
 		"project": "./tsconfig.json"
 	},
-	"extends": [
-		"standard",
-		"standard-with-typescript",
-		"plugin:react/recommended",
-		"plugin:react/jsx-runtime",
-		"plugin:react-hooks/recommended"
-	],
+	"extends": ["standard", "standard-with-typescript"],
 	"rules": {
 		"array-bracket-newline": ["error", { "minItems": 3 }],
 		"array-element-newline": ["error", { "multiline": true }],
@@ -76,11 +70,7 @@
 			"error",
 			{ "allowNullableObject": true, "allowNullableBoolean": true, "allowNullableString": true }
 		],
-		"@typescript-eslint/restrict-template-expressions": [
-			"error",
-			{ "allowNullish": true }
-		],
-		"react/jsx-no-target-blank": "off"
+		"@typescript-eslint/restrict-template-expressions": ["error", { "allowNullish": true }]
 	},
 	"ignorePatterns": ["node_modules", "dist", "generated"]
 }
