@@ -2,12 +2,15 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-    "lib": ["es2020"],
-    "target": "es2020",
-    "module": "esnext",
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "nodenext",
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
     "esModuleInterop": true,
 		"strictNullChecks": true,
-    "types": ["node"]
-  }
+    "types": ["node", "mocha"],
+  },
+	"include": ["src", "./*.ts"]
 }
