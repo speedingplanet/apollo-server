@@ -6,11 +6,10 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "nodenext",
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
     "esModuleInterop": true,
 		"strictNullChecks": true,
     "types": ["node", "mocha"],
+		"sourceMap": true
   },
 	"include": ["src", "./*.ts"]
 }

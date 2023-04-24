@@ -102,6 +102,32 @@ export const movies: Movie[] = [
 			'anime', 'fantasy', 'family', 'mystery',
 		],
 	},
+	{
+		id: 7,
+		title: 'A Star Is Born',
+		year: 2018,
+		directors: ['Bradley Cooper'],
+		writers: [
+			'Eric Roth', 'Bradley Cooper', 'Will Fetters',
+		],
+		rating: 4,
+		genres: [
+			'show-business', 'musical', 'drama', 'romance',
+		],
+	},
+	{
+		id: 8,
+		title: 'A Star Is Born',
+		year: 1976,
+		directors: ['Frank Pierson'],
+		writers: [
+			'John Gregory Dunne', 'Joan Didion', 'Frank Pierson',
+		],
+		rating: 3,
+		genres: [
+			'show-business', 'musical', 'drama', 'romance',
+		],
+	},
 ];
 
 export const students: Student[] = [

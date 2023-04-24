@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import type { Resolvers } from './generated/graphql.ts';
+import type { Resolvers } from './generated/graphql.js';
 import { type Movie, movies } from './data/all-data-typed.js';
 import _ from 'lodash';
 
@@ -8,7 +8,7 @@ let singularFields = [
 ];
 
 let multipleFields = [
-	'directors', 'writers', 'genres',
+	'director', 'writer', 'genre',
 ];
 
 export const resolvers: Resolvers = {
@@ -18,7 +18,7 @@ export const resolvers: Resolvers = {
 		movies(parent, args) {
 			if (!args || _.isEmpty(args)) return movies;
 
-			let filteredMovies: Movie[] = [];
+			let filteredMovies: Movie[] = [...movies];
 			let argKeys = Object.keys(args);
 			if (argKeys.some(k => singularFields.includes(k))) {
 				let singularArgs = _.pick(args, singularFields);
@@ -27,13 +27,13 @@ export const resolvers: Resolvers = {
 				filteredMovies = _.filter(movies, singularArgs) as Movie[];
 			}
 
-			if (argKeys.some(k => multipleFields.includes(`${k}s`))) {
+			if (argKeys.some(k => multipleFields.includes(k))) {
 				let multipleArgs = _.pick(args, multipleFields);
 
 				filteredMovies = filteredMovies.filter(m => {
 					return Object.entries(multipleArgs)
 						.every(([searchKey, searchValue]) => {
-							return m[searchKey] === searchValue;
+							return m[`${searchKey}s`].includes(searchValue);
 						});
 				});
 			}
