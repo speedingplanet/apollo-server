@@ -43,7 +43,7 @@ describe('Test suite', () => {
 		expect(response.body.singleResult.data.movies.length).to.equal(originalMovies.length);
 	});
 
-	it('should filter on year', async () => {
+	it('should filter on a single-value field', async () => {
 		let testYear = 2001;
 
 		const response = await testServer.executeOperation({
@@ -66,19 +66,22 @@ describe('Test suite', () => {
 		assert(actualMovies.every(m => m.year === testYear));
 	});
 
-	it('should filter on year and title', async () => {
+	it('should filter on multiple single-value fields', async () => {
 		let testYear = 2001;
 		let testTitle = 'Spirited Away';
 
 		const response = await testServer.executeOperation({
-			query: `query($year: Int) {
-				movies(year: $year) {
+			query: `query($title: String, $year: Int) {
+				movies(title: $title, year: $year) {
 					id
 					title
 					year
 				}
 			}`,
-			variables: { year: testYear },
+			variables: {
+				year: testYear,
+				title: testTitle,
+			},
 		});
 
 		assert(response.body.kind === 'single');
@@ -87,6 +90,37 @@ describe('Test suite', () => {
 		assert(Array.isArray(response.body.singleResult.data.movies));
 		let actualMovies = response.body.singleResult.data.movies as Movie[];
 		expect(actualMovies.length).to.be.greaterThan(0);
-		assert(actualMovies.every(m => m.year === testYear));
+		actualMovies.forEach(m => {
+			// Write them this way to get better feedback on failure
+			assert.equal(m.year, testYear);
+			assert.equal(m.title, testTitle);
+		});
+	});
+
+	it('should filter on a single value in a multiple-value field', async () => {
+		let testGenre = 'drama';
+
+		const response = await testServer.executeOperation({
+			query: `query($genre: String) {
+				movies(genre: $genre) {
+					id
+					genres
+				}
+			}`,
+			variables: {
+				genre: testGenre,
+			},
+		});
+
+		assert(response.body.kind === 'single');
+		assert(response.body.singleResult.data);
+		assert(response.body.singleResult.data.movies);
+		assert(Array.isArray(response.body.singleResult.data.movies));
+		let actualMovies = response.body.singleResult.data.movies as Movie[];
+		expect(actualMovies.length).to.be.greaterThan(0);
+		actualMovies.forEach(m => {
+			// Write them this way to get better feedback on failure
+			expect(m.genres).to.contain(testGenre);
+		});
 	});
 });
