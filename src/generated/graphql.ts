@@ -97,7 +97,13 @@ export type QueryHelloArgs = {
 
 
 export type QueryMoviesArgs = {
+  director?: InputMaybe<Scalars['String']>;
+  genre?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  rating?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
+  writer?: InputMaybe<Scalars['String']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 

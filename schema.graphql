@@ -29,7 +29,7 @@ type Student {
 
 type Query {
 	hello(name: String): String!
-	movies(title: String): [Movie]
+	movies(id: Int, title: String, year: Int, director: String, writer: String, rating: Int, genre: String): [Movie]
 	moviesByYear(rating: Int, year: Int): [Movie]
 	students: [Student]
 }
