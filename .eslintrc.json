@@ -70,7 +70,7 @@
 			"error",
 			{ "allowNullableObject": true, "allowNullableBoolean": true, "allowNullableString": true }
 		],
-		"@typescript-eslint/restrict-template-expressions": ["error", { "allowNullish": true }]
+		"@typescript-eslint/restrict-template-expressions": "off"
 	},
 	"ignorePatterns": ["node_modules", "dist", "generated"]
 }
