@@ -37,10 +37,10 @@ type Query {
 input NewMovie {
 	title: String!
 	year: Int!
-	directors: [String]
-	writers: [String]
-	rating: Int
-	genres: [String]
+	directors: [String!]!
+	writers: [String!]!
+	rating: Int!
+	genres: [String!]!
 }
 
 input NewStudent {
@@ -48,11 +48,11 @@ input NewStudent {
 	lastName: String!
 	dateOfBirth: String!
 	email: String!
-	phoneNumber: String
-	city: String
+	phoneNumber: String!
+	city: String!
 	province: String
-	country: String
-	postalCode: String
+	country: String!
+	postalCode: String!
 }
 
 input UpdateMovie {
@@ -80,6 +80,9 @@ type Mutation {
 	addMovie(movie: NewMovie!): Movie
 	addStudent(student: NewStudent!): Student
 
-	updateMovie(id: Int, movie: UpdateMovie): Movie
-	updateStudent(id: Int, student: UpdateStudent): Student
+	updateMovie(id: Int!, movie: UpdateMovie!): Movie
+	updateStudent(id: Int!, student: UpdateStudent!): Student
+
+	deleteMovie(id: Int!): Boolean
+	deleteStudent(id: Int!): Boolean
 }

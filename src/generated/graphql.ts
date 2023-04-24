@@ -35,6 +35,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   addMovie?: Maybe<Movie>;
   addStudent?: Maybe<Student>;
+  deleteMovie?: Maybe<Scalars['Boolean']>;
+  deleteStudent?: Maybe<Scalars['Boolean']>;
   updateMovie?: Maybe<Movie>;
   updateStudent?: Maybe<Student>;
 };
@@ -50,35 +52,45 @@ export type MutationAddStudentArgs = {
 };
 
 
+export type MutationDeleteMovieArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationDeleteStudentArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationUpdateMovieArgs = {
-  id?: InputMaybe<Scalars['Int']>;
-  movie?: InputMaybe<UpdateMovie>;
+  id: Scalars['Int'];
+  movie: UpdateMovie;
 };
 
 
 export type MutationUpdateStudentArgs = {
-  id?: InputMaybe<Scalars['Int']>;
-  student?: InputMaybe<UpdateStudent>;
+  id: Scalars['Int'];
+  student: UpdateStudent;
 };
 
 export type NewMovie = {
-  directors?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  genres?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-  rating?: InputMaybe<Scalars['Int']>;
+  directors: Array<Scalars['String']>;
+  genres: Array<Scalars['String']>;
+  rating: Scalars['Int'];
   title: Scalars['String'];
-  writers?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  writers: Array<Scalars['String']>;
   year: Scalars['Int'];
 };
 
 export type NewStudent = {
-  city?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<Scalars['String']>;
+  city: Scalars['String'];
+  country: Scalars['String'];
   dateOfBirth: Scalars['String'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  phoneNumber?: InputMaybe<Scalars['String']>;
-  postalCode?: InputMaybe<Scalars['String']>;
+  phoneNumber: Scalars['String'];
+  postalCode: Scalars['String'];
   province?: InputMaybe<Scalars['String']>;
 };
 
@@ -261,8 +273,10 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationAddMovieArgs, 'movie'>>;
   addStudent?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, RequireFields<MutationAddStudentArgs, 'student'>>;
-  updateMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, Partial<MutationUpdateMovieArgs>>;
-  updateStudent?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, Partial<MutationUpdateStudentArgs>>;
+  deleteMovie?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteMovieArgs, 'id'>>;
+  deleteStudent?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDeleteStudentArgs, 'id'>>;
+  updateMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationUpdateMovieArgs, 'id' | 'movie'>>;
+  updateStudent?: Resolver<Maybe<ResolversTypes['Student']>, ParentType, ContextType, RequireFields<MutationUpdateStudentArgs, 'id' | 'student'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

@@ -2,6 +2,7 @@
 import type { Resolvers } from './generated/graphql.js';
 import { type Movie, movies } from './data/all-data-typed.js';
 import _ from 'lodash';
+import { GraphQLError } from 'graphql';
 
 let singularFields = [
 	'id', 'title', 'rating', 'year',
@@ -40,4 +41,52 @@ export const resolvers: Resolvers = {
 			return filteredMovies;
 		},
 	},
+
+	Mutation: {
+		addMovie(parent, args) {
+			let id = getNextId(movies, 'id');
+			let newMovie = {
+				...args.movie,
+				id,
+			};
+
+			movies.push(newMovie);
+
+			return newMovie;
+		},
+
+		updateMovie(parent, args) {
+			let id = args.id;
+
+			let foundMovie = movies.find(m => m.id === id);
+			if (foundMovie === null || typeof foundMovie !== 'object') {
+				throw new GraphQLError(`Invalid argument value (id ${id} not found`, {
+					extensions: { code: 'BAD_USER_INPUT' },
+				});
+			} else {
+				Object.assign(foundMovie, args.movie);
+			}
+
+			return foundMovie;
+		},
+
+		deleteMovie(parent, args) {
+			let id = args.id;
+
+			let foundMovieIndex = movies.findIndex(m => m.id === id);
+			if (foundMovieIndex === -1) {
+				throw new GraphQLError(`Invalid argument value (id ${id} not found`, {
+					extensions: { code: 'BAD_USER_INPUT' },
+				});
+			} else {
+				movies.splice(foundMovieIndex, 1);
+			}
+			return true;
+		},
+	},
 };
+
+function getNextId<T>(records: T[], field: keyof T) {
+	let values = records.map(r => r[field]) as number[];
+	return Math.max(...values) + 1;
+}
