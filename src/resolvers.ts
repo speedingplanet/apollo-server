@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import type { Resolvers } from './generated/graphql.js';
-import { type Movie, movies } from './data/all-data-typed.js';
+import {
+	type Movie, movies, students, type Student
+} from './data/all-data-typed.js';
 import _ from 'lodash';
 import { GraphQLError } from 'graphql';
 
@@ -24,7 +26,7 @@ export const resolvers: Resolvers = {
 			if (argKeys.some(k => singularFields.includes(k))) {
 				let singularArgs = _.pick(args, singularFields);
 
-				// TypeScript thinks _filter could return Movie or number, I don't know why
+				// TODO: TypeScript thinks _filter could return Movie or number, I don't know why
 				filteredMovies = _.filter(movies, singularArgs) as Movie[];
 			}
 
@@ -40,6 +42,14 @@ export const resolvers: Resolvers = {
 			}
 			return filteredMovies;
 		},
+
+		students(parent, args) {
+			if (!args || _.isEmpty(args)) return students;
+
+			let filteredStudents: Student[] = [...students];
+			filteredStudents = _.filter(students, args) as Student[];
+			return filteredStudents;
+		},
 	},
 
 	Mutation: {
@@ -53,6 +63,20 @@ export const resolvers: Resolvers = {
 			movies.push(newMovie);
 
 			return newMovie;
+		},
+
+		addStudent(parent, args) {
+			let id = getNextId(movies, 'id');
+			let newStudent = {
+				...args.student,
+				id,
+			};
+
+			// TODO: Some complexity with province: null on the TS side and
+			// and optional province on the GraphQL side
+			students.push(newStudent as Student);
+
+			return newStudent;
 		},
 
 		updateMovie(parent, args) {
@@ -70,6 +94,21 @@ export const resolvers: Resolvers = {
 			return foundMovie;
 		},
 
+		updateStudent(parent, args) {
+			let id = args.id;
+
+			let foundStudent = students.find(m => m.id === id);
+			if (foundStudent === null || typeof foundStudent !== 'object') {
+				throw new GraphQLError(`Invalid argument value (id ${id} not found`, {
+					extensions: { code: 'BAD_USER_INPUT' },
+				});
+			} else {
+				Object.assign(foundStudent, args.student);
+			}
+
+			return foundStudent;
+		},
+
 		deleteMovie(parent, args) {
 			let id = args.id;
 
@@ -80,6 +119,20 @@ export const resolvers: Resolvers = {
 				});
 			} else {
 				movies.splice(foundMovieIndex, 1);
+			}
+			return true;
+		},
+
+		deleteStudent(parent, args) {
+			let id = args.id;
+
+			let foundStudentIndex = students.findIndex(m => m.id === id);
+			if (foundStudentIndex === -1) {
+				throw new GraphQLError(`Invalid argument value (id ${id} not found`, {
+					extensions: { code: 'BAD_USER_INPUT' },
+				});
+			} else {
+				students.splice(foundStudentIndex, 1);
 			}
 			return true;
 		},

@@ -1,9 +1,3 @@
-enum Country {
-	US
-	UK
-	CA
-}
-
 type Movie {
 	id: Int!
 	title: String!
@@ -20,11 +14,11 @@ type Student {
 	lastName: String!
 	dateOfBirth: String!
 	email: String!
-	phoneNumber: String
-	city: String
+	phoneNumber: String!
+	city: String!
 	province: String
-	country: Country
-	postalCode: String
+	country: String!
+	postalCode: String!
 }
 
 type Query {

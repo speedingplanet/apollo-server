@@ -14,12 +14,6 @@ export type Scalars = {
   Float: number;
 };
 
-export enum Country {
-  Ca = 'CA',
-  Uk = 'UK',
-  Us = 'US'
-}
-
 export type Movie = {
   __typename?: 'Movie';
   directors?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -126,15 +120,15 @@ export type QueryMoviesByYearArgs = {
 
 export type Student = {
   __typename?: 'Student';
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Country>;
+  city: Scalars['String'];
+  country: Scalars['String'];
   dateOfBirth: Scalars['String'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   id: Scalars['Int'];
   lastName: Scalars['String'];
-  phoneNumber?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
+  phoneNumber: Scalars['String'];
+  postalCode: Scalars['String'];
   province?: Maybe<Scalars['String']>;
 };
 
@@ -231,7 +225,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Country: Country;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -287,15 +280,15 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type StudentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Student'] = ResolversParentTypes['Student']> = {
-  city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  country?: Resolver<Maybe<ResolversTypes['Country']>, ParentType, ContextType>;
+  city?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   dateOfBirth?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  phoneNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  postalCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  phoneNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  postalCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   province?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
