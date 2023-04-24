@@ -4,26 +4,6 @@ enum Country {
 	CA
 }
 
-enum Genre {
-	ACTION
-	ADVENTURE
-	SUPERNATURAL
-	WAR
-	BLACK_AND_WHITE
-	ROMANCE
-	DRAMA
-	MOB
-	MAFIA
-	CRIME
-	BIOGRAPHY
-	FANTASY
-	COMIC_BOOK
-	SCI_FI
-	ANIME
-	FAMILY
-	MYSTERY
-}
-
 type Movie {
 	id: Int!
 	title: String!
@@ -31,7 +11,7 @@ type Movie {
 	directors: [String]
 	writers: [String]
 	rating: Int
-	genres: [Genre]
+	genres: [String]
 }
 
 type Student {
@@ -49,16 +29,7 @@ type Student {
 
 type Query {
 	hello(name: String): String!
-	movies(
-		exact: Boolean = true
-		title: String
-		year: Int
-		rating: Int
-		id: Int
-		director: String
-		writer: String
-		genre: String
-	): [Movie]
+	movies(title: String): [Movie]
 	moviesByYear(rating: Int, year: Int): [Movie]
 	students: [Student]
 }

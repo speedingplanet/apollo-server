@@ -20,30 +20,10 @@ export enum Country {
   Us = 'US'
 }
 
-export enum Genre {
-  Action = 'ACTION',
-  Adventure = 'ADVENTURE',
-  Anime = 'ANIME',
-  Biography = 'BIOGRAPHY',
-  BlackAndWhite = 'BLACK_AND_WHITE',
-  ComicBook = 'COMIC_BOOK',
-  Crime = 'CRIME',
-  Drama = 'DRAMA',
-  Family = 'FAMILY',
-  Fantasy = 'FANTASY',
-  Mafia = 'MAFIA',
-  Mob = 'MOB',
-  Mystery = 'MYSTERY',
-  Romance = 'ROMANCE',
-  SciFi = 'SCI_FI',
-  Supernatural = 'SUPERNATURAL',
-  War = 'WAR'
-}
-
 export type Movie = {
   __typename?: 'Movie';
   directors?: Maybe<Array<Maybe<Scalars['String']>>>;
-  genres?: Maybe<Array<Maybe<Genre>>>;
+  genres?: Maybe<Array<Maybe<Scalars['String']>>>;
   id: Scalars['Int'];
   rating?: Maybe<Scalars['Int']>;
   title: Scalars['String'];
@@ -104,8 +84,26 @@ export type NewStudent = {
 
 export type Query = {
   __typename?: 'Query';
+  hello: Scalars['String'];
   movies?: Maybe<Array<Maybe<Movie>>>;
+  moviesByYear?: Maybe<Array<Maybe<Movie>>>;
   students?: Maybe<Array<Maybe<Student>>>;
+};
+
+
+export type QueryHelloArgs = {
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryMoviesArgs = {
+  title?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryMoviesByYearArgs = {
+  rating?: InputMaybe<Scalars['Int']>;
+  year?: InputMaybe<Scalars['Int']>;
 };
 
 export type Student = {
@@ -216,7 +214,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Country: Country;
-  Genre: Genre;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -246,7 +243,7 @@ export type ResolversParentTypes = {
 
 export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
   directors?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
-  genres?: Resolver<Maybe<Array<Maybe<ResolversTypes['Genre']>>>, ParentType, ContextType>;
+  genres?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   rating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -263,7 +260,9 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  movies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Movie']>>>, ParentType, ContextType>;
+  hello?: Resolver<ResolversTypes['String'], ParentType, ContextType, Partial<QueryHelloArgs>>;
+  movies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Movie']>>>, ParentType, ContextType, Partial<QueryMoviesArgs>>;
+  moviesByYear?: Resolver<Maybe<Array<Maybe<ResolversTypes['Movie']>>>, ParentType, ContextType, Partial<QueryMoviesByYearArgs>>;
   students?: Resolver<Maybe<Array<Maybe<ResolversTypes['Student']>>>, ParentType, ContextType>;
 };
 
