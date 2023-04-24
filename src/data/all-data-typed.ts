@@ -27,7 +27,7 @@ export interface Movie {
 	genres: string[];
 }
 
-export const movies = [
+export const movies: Movie[] = [
 	{
 		id: 1,
 		title: 'Raiders of the Lost Ark',
